@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<HTML lang="zh-CN">
+
+<!-- ========== ======================================== ==================== -->
+<!-- 头部标记 head -->
+<HEAD>
+    <!-- 标题标记 title -->
+	<TITLE> Erlang API </TITLE>
+
+    <!-- 元信息标记 meta -->
+    <!-- 设置作者信息 author -->
+    <META name="author"             content="cheongyi" />
+    <!-- 设置页面说明 description-->
+    <META name="description"        content="copy from www.erldoc.com" />
+    <!-- 设置网页文字及语言 content-type -->
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <LINK rel="shortcut icon" type="image/ico" href="image/logo.png" />
+
+<!-- ========== ======================================== ==================== -->
+<STYLE type="text/css">
+    li  { list-style : none; }
+    td  { font-size  : 14px; line-height : 26px; }
+    a:link  { text-decoration : none; font-size : 18px; color : gray; }
+    .red    { color  : #FF0000; }
+
+    /* 搜索框 */
+    .search {
+  background-color: #fff; opacity: 0.8; /* 搜索框半透明效果 */
+    }
+</STYLE>
+
+<SCRIPT language="JavaScript">
+function show(){
+    if (document.getElementById("left").style.display == 'none'){ // 判断目前左边栏的状态（显示、隐藏）
+        document.getElementById("left").style.display  = 'table-cell'; // 显示左边栏
+    }
+    else{
+        document.getElementById("left").style.display  = 'none'; // 隐藏左边栏
+    }
+}
+</SCRIPT>
+
+<SCRIPT type="text/javascript">
+window.onload = function() {
+    var imgs = document.getElementsByTagName("img");
+    for(var i = 0; i < imgs.length; i++) {
+        (function(a) {
+            var img = new Image();
+            img.onerror = function() {
+                if(imgs[a].getAttribute("alt")) {
+                    var txt = document.createTextNode(imgs[a].alt);
+                    imgs[a].parentNode.insertBefore(txt, imgs[a]);
+                }
+                imgs[a].style.display = "none";
+            };
+            img.src = imgs[a].src;
+        })(i);
+    }
+};
+</SCRIPT>
+
+</HEAD>
+
+
+<!-- ========== ======================================== ==================== -->
+<!-- 主体标记 body -->
+<BODY>
+<TABLE width="100%" height="100%" border="1" cellspacing="0" cellpadding="0" align="center">
+<TR>
+    <!-- 左侧导航 -->
+    <TD id="left" width="20%" >
+        <input type="search" class="search" placeholder="Search..." id="search" autocomplete="off" />
+
+        <LI><A title="" href="/mod/operator/?search=operator:"> 运算符   </A></LI>
+        <LI><A title="" href="/mod/Bifs/?search=Bifs:">         Bifs    </A></LI>
+        <LI><A title="通用 OTP 应用函数" href="/mod/application/?search=application:">    application </A></LI>
+        <LI><A title="数组" href="/mod/array/?search=array:">       array   </A></LI>
+        <LI><A title="" href="/mod/beam_lib/?search=beam_lib:"> beam_lib</A></LI>
+        <LI><A title="" href="/mod/binary/?search=binary:">     binary  </A></LI>
+        <LI><A title="" href="/mod/c/?search=c:">               c       </A></LI>
+        <LI><A title="" href="/mod/calendar/?search=calendar:"> calendar</A></LI>
+        <LI><A title="" href="/mod/code/?search=code:">         code    </A></LI>
+        <LI><A title="" href="/mod/dets/?search=dets:">         dets    </A></LI>
+        <LI><A title="" href="/mod/dict/?search=dict:">         dict    </A></LI>
+        <LI><A title="" href="/mod/erlang/?search=erlang:">     erlang  </A></LI>
+        <LI><A title="" href="/mod/ets/?search=ets:">           ets     </A></LI>
+        <LI><A title="" href="/mod/file/?search=file:">         file    </A></LI>
+        <LI><A title="" href="/mod/filelib/?search=filelib:">   filelib </A></LI>
+        <LI><A title="" href="/mod/filename/?search=filename:"> filename</A></LI>
+        <LI><A title="" href="/mod/gen_event/?search=gen_event:">   gen_event   </A></LI>
+        <LI><A title="" href="/mod/gen_server/?search=gen_server:"> gen_server  </A></LI>
+        <LI><A title="" href="/mod/gen_tcp/?search=gen_tcp:">   gen_tcp </A></LI>
+        <LI><A title="" href="/mod/inet/?search=inet:">         inet    </A></LI>
+        <LI><A title="" href="/mod/init/?search=init:">         init    </A></LI>
+        <LI><A title="" href="/mod/io/?search=io:">             io      </A></LI>
+        <LI><A title="" href="/mod/lists/?search=lists:">       lists   </A></LI>
+        <LI><A title="" href="/mod/mnesia/?search=mnesia:">     mnesia  </A></LI>
+        <LI><A title="" href="/mod/net_adm/?search=net_adm:">   net_adm </A></LI>
+        <LI><A title="" href="/mod/os/?search=os:">             os      </A></LI>
+        <LI><A title="" href="/mod/rpc/?search=rpc:">           rpc     </A></LI>
+        <LI><A title="" href="/mod/ssl/?search=ssl:">           ssl     </A></LI>
+        <LI><A title="" href="/mod/string/?search=string:">     string  </A></LI>
+        <LI><A title="" href="/mod/supervisor/?search=supervisor:"> supervisor  </A></LI>
+        <LI><A title="" href="/mod/timer/?search=timer:">       timer   </A></LI>
+    </TD>
+
+    <!-- 中间隐藏按钮 -->
+    <TD width="1%" rowspan = "3" style="border-right:1 #cccccc solid;">
+        <A href="javascript:show();"><IMG alt="隐藏边栏" src="image/fclose.png" align="absmiddle" border="0"></A>
+    </TD>
+
+    <!-- 右侧内容 -->
+    <TD rowspan = "3">
+    在OTP中，应用(application)表示实现某些特定功能的组件，
+<BR />
+它可以作为一个单元来启动和停止，并且可以在其他系统中重用。
+
+<BR />
+<BR />
+这个模块与应用控制器(application_controller)交互，
+<BR />
+这是在每个Erlang运行时系统(Erlang runtime system :: ERTS)启动的一个进程。
+<BR />
+这个模块包含 控制应用的函数(例如：启动和停止应用)和访问有关应用信息的函数(例如：参数配置)。
+
+
+<BR />
+<BR />
+一个应用由应用规范定义。
+<BR />
+规范通常位于名为 Application.app 的应用资源文件中，Application是该应用的名称。
+<BR />
+有关应用规范的详情，请参见app(4)。
+
+<BR />
+<BR />
+这个模块也可以看作根据OTP设计原则作为监督树的应用实现行为(-behaviour)。
+<BR />
+如何定义启动和停止监督树位于应用回调(-callback)模块中，需导出(-export)这几个预定义的回调函数。
+
+<BR />
+<BR />
+有关应用和行为的详情，请参加OTP设计原则(OTP Design Principles)。
+
+<BR />
+<HR />
+<P>
+In OTP, application denotes a component implementing some specific functionality,
+<BR />
+that can be started and stopped as a unit, and that can be reused in other systems.
+<BR />
+This module interacts with application controller, 
+<BR />
+a process started at every Erlang runtime system. 
+<BR />
+This module contains functions for controlling applications 
+<BR />
+(for example, starting and stopping applications), 
+<BR />
+and functions to access information about applications (for example, configuration parameters).
+
+<BR />
+<BR />
+An application is defined by an application specification. 
+<BR />
+The specification is normally located in an application resource file named Application.app, 
+<BR />
+where Application is the application name. 
+<BR />
+For details about the application specification, see app(4).
+
+<BR />
+<BR />
+This module can also be viewed as a behaviour for an application implemented 
+<BR />
+according to the OTP design principles as a supervision tree. 
+<BR />
+The definition of how to start and stop the tree is to be located in an application callback module,
+<BR />
+exporting a predefined set of functions.
+
+<BR />
+<BR />
+For details about applications and behaviours, see OTP Design Principles.
+</P>
+    </TD>
+</TR>
+</TABLE>
+
+</BODY>
+
+</HTML>
